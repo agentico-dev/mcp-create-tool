@@ -1,0 +1,37 @@
+import { z } from "zod";
+import { zodToJsonSchema } from 'zod-to-json-schema';
+import {Tool} from "@agentico/mcp-server";
+
+// @todo Adapt the schema and input type to match the tool's input you want to create
+const <%= tool %>Schema = z.object({
+  message: z.string().describe("The message to echo"),
+});
+// this is the input type that the tool will receive and that you can use in the execute method
+type <%= tool %>Input = z.infer<typeof <%= tool %>Schema>;
+export class <%= tool %>Tool extends Tool {
+  constructor() {
+    super();
+    this.toolSchema = {
+        name: "<%= tool %>", // how the tool will be identified in the toolchain
+        description: "<%= description %>",  // a description of what the tool does, the more detailed the better
+        inputSchema: zodToJsonSchema(<%= tool %>Schema)
+      };
+  }
+  init(): void {
+    // @todo - Implement any initialization logic here
+    // console.error("<%= tool %>Tool initialized");
+  }
+  execute(input: <%= tool %>Input): Promise<any> {
+    // @todo - Implement the tool logic here - this is where the tool does its work
+    // console.error("<%= tool %>Tool executing with input:", input);
+    // echoing, just return the input message
+    return Promise.resolve({
+      content: [
+        {
+          type: "text",
+          text: `${input.message}` 
+        }
+      ]
+      });
+  }
+}

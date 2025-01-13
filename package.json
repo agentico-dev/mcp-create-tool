@@ -1,0 +1,43 @@
+{
+  "name": "@agentico/mcp-create-tool",
+  "version": "0.1.0",
+  "description": "CLI tool to create new Agentico MCP tools",
+  "license": "MIT",
+  "author": {
+    "name": "Agentico",
+    "url": "https://agentico.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentico-dev/mcp-create-tool"
+  },
+  "homepage": "https://agentico.dev",
+  "bugs": "https://github.com/agentico-dev/mcp-create-tool/issues",
+  "type": "module",
+  "bin": {
+    "mcp-create-tool": "build/index.js"
+  },
+  "files": [
+    "build",
+    "template"
+  ],
+  "scripts": {
+    "build": "tsc && shx chmod +x build/index.js",
+    "prepare": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.2.2",
+    "chalk": "^5.4.1",
+    "commander": "^13.0.0",
+    "ejs": "^3.1.10",
+    "is-wsl": "^3.1.0",
+    "ora": "^8.1.1"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^20.11.24",
+    "shx": "^0.3.4",
+    "typescript": "^5.3.3"
+  }
+}

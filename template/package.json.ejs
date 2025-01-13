@@ -1,0 +1,37 @@
+{
+  "name": "<%= name %>",
+  "version": "0.1.0",
+  "description": "<%= description %>",
+  "type": "module",
+  "contributors": [
+    {
+      "name": "Adrian Escutia",
+      "url": "https://escutia.me/adrian"
+    },
+    {
+      "name": "La Rebelion Labs",
+      "url": "https://rebelion.la"
+    }
+  ],
+  "bin": {
+    "<%= name %>": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
+  },
+  "dependencies": {
+    "@agentico/mcp-server": "^0.2.0",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}

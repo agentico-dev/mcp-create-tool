@@ -1,0 +1,70 @@
+# <%= name %> MCP Server
+
+<%= description %>
+
+This is a TypeScript-based MCP server that implements a simple echo from server. It demonstrates how to create an MCP server Tools with [Agentico](https://agentico.dev) SDK. Generates:
+
+- Tools to be used with the Agentico's MCPServer.
+- A simple MCP server that illustrates the simplicity of the Agentico pattern.
+
+## Features
+
+### Tools
+- `<%= tool %>` - Echoes the input message
+  - Takes a message from the user and echoes it back.
+
+### Resources
+- Not yet implemented.
+
+### Prompts
+- Not yet implemented.
+
+Any feedback or contributions are welcome. Go Rebels! ✊🏻
+
+For more details, visit the [Documentation](https://agentico.dev/docs), the [GitHub repository](https://github.com/agentico/mcp-server) or [npm package page](https://www.npmjs.com/package/@agentico/mcp-server).
+
+With ❤️ from [La Rebelion Labs](https://rebelion.la). 🚀
+
+## Development
+
+Install dependencies:
+```bash
+npm install
+```
+
+Build the server:
+```bash
+npm run build
+```
+
+For development with auto-rebuild:
+```bash
+npm run watch
+```
+
+## Installation
+
+To use with Claude Desktop, add the server config:
+
+On MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "<%= name %>": {
+      "command": "/path/to/<%= name %>/build/index.js"
+    }
+  }
+}
+```
+
+### Debugging
+
+Since MCP servers communicate over stdio, debugging can be challenging. We recommend using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector), which is available as a package script:
+
+```bash
+npm run inspector
+```
+
+The Inspector will provide a URL to access debugging tools in your browser.
