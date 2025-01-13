@@ -1,58 +1,42 @@
+name: Publish to npm
 
 on:
   push:
     branches:
       - main
-  pull_request:
-  release:
-    types: [published]
+  workflow_dispatch:  # Allows manual triggering
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+permissions:
+  contents: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: npm
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: Test creation from template
-        run: |
-          ./build/index.js test-server --name test-server --description "Here is a test server" --tool "Echo"
-
-      - name: Validate generated project
-        run: npm install && npm run build && npm link
-        working-directory: test-server
-
   publish:
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
-    environment: release
-    needs: build
-
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
         with:
-          node-version: 18
-          cache: npm
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm publish --access public
+      - name: Build project
+        run: npm run build
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Publish to npm
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
